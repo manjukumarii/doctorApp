@@ -48,7 +48,7 @@ class SignUpPage extends StatelessWidget {
                 Text(
                   "Your Doctor",
                   style: TextStyle(
-                    fontSize: 20, // Smaller text size
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: primaryColor,
                   ),
@@ -65,7 +65,6 @@ class SignUpPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Email Field
                 const Text(
                   "Email",
                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
@@ -90,7 +89,7 @@ class SignUpPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 15),
 
-                // Phone Number Field with Flag
+                // Phone Number
                 const Text(
                   "Phone Number",
                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
@@ -113,7 +112,7 @@ class SignUpPage extends StatelessWidget {
                       borderSide: BorderSide(width: 1.5, color: primaryColor),
                     ),
                   ),
-                  initialCountryCode: 'IN', // Default country
+                  initialCountryCode: 'IN',
                   onChanged: (phone) {
                     print("Phone number: ${phone.completeNumber}");
                   },
@@ -158,7 +157,29 @@ class SignUpPage extends StatelessWidget {
                   width: double.infinity,
                   height: 40,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      String email =
+                          authenticationProvider.emailController.text.trim();
+                      String phone =
+                          authenticationProvider.phoneController.text.trim();
+                      String password =
+                          authenticationProvider.passwordController.text.trim();
+
+                      if (email.isEmpty || phone.isEmpty || password.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text("Fill all required blanks")));
+                      } else {
+                        await authenticationProvider.loginUser();
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                              content: Text("User signed up successfully!")),
+                        );
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return SignInPage();
+                        }));
+                      }
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: primaryColor,
                       shape: RoundedRectangleBorder(

@@ -1,4 +1,5 @@
 import 'package:doctor_app/colors.dart';
+import 'package:doctor_app/home_page.dart';
 import 'package:doctor_app/provider/authentication_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -46,7 +47,7 @@ class SignInPage extends StatelessWidget {
                 Text(
                   "Your Doctor",
                   style: TextStyle(
-                    fontSize: 20, // Smaller text size
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: primaryColor,
                   ),
@@ -138,7 +139,27 @@ class SignInPage extends StatelessWidget {
                   width: double.infinity,
                   height: 40,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      String email =
+                          authenticationProvider.emailController.text.trim();
+                      String password =
+                          authenticationProvider.passwordController.text.trim();
+
+                      if (email.isNotEmpty && password.isNotEmpty) {
+                        authenticationProvider.loginUser();
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text("Signed in successfully")));
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return HomePage();
+                        }));
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text("Enter valid credentials")));
+                      }
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: primaryColor,
                       shape: RoundedRectangleBorder(
