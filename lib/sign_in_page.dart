@@ -1,5 +1,5 @@
+import 'package:doctor_app/bottom_navigation.dart';
 import 'package:doctor_app/colors.dart';
-import 'package:doctor_app/home_page.dart';
 import 'package:doctor_app/provider/authentication_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -152,7 +152,7 @@ class SignInPage extends StatelessWidget {
                                 content: Text("Signed in successfully")));
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
-                          return HomePage();
+                          return NavigationPage();
                         }));
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(

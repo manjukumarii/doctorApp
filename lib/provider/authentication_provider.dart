@@ -1,4 +1,4 @@
-import 'package:doctor_app/home_page.dart';
+import 'package:doctor_app/bottom_navigation.dart';
 import 'package:doctor_app/sign_in_page.dart';
 import 'package:doctor_app/sign_up_page.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +22,7 @@ class AuthenticationProvider extends ChangeNotifier {
     if (isSignedIn) {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => HomePage()),
+        MaterialPageRoute(builder: (context) => NavigationPage()),
       );
     } else {
       bool isFirstTime = prefs.getBool('isFirstTime') ?? true;
